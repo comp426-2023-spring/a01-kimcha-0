@@ -17,7 +17,6 @@ const port = args.port || 3000;
 
 // If there is an error, put it on the console error and return. 
 // Do not be nice about exiting.
-fx.readFile('./public/index.html');
 
 
 
@@ -28,6 +27,13 @@ fx.readFile('./public/index.html');
 // 2. set a header with content type `text/html`, and 
 // 3. end with the data that you are reading in from ./public/index.html.
 const server = http.createServer((req, res) => {
+	
+	fs.readFile('./public/index.html', 'utf8', (error, data) => {
+		if (error) {
+			console.error(error);
+			return;
+		}
+	);
 	res.writeHead(200, {'Content-Type': 'text/html'});
 	res.end(data);
 });
