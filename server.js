@@ -23,12 +23,22 @@ const port = args.port;
 // Do not be nice about exiting.
 
 
-
 // Define a const `server` as an arrow function using http.createServer. 
 // Use the documentation for the node.js http module. 
 // The function should have three responses: 
 // 1. status code 200, 
 // 2. set a header with content type `text/html`, and 
+// 3. end with the data that you are reading in from ./public/index.html
+const server = http.createServer((req, res) => {
+	fs.readFile('./public/index.html', 'utf8', (err, data) => {
+		if (err) {
+			console.error(err);
+			return;
+		}
+	res.writeHead(200, { 'Content-Type': 'text/html' });
+	res.end(data);
+	})
+});
 
 
 
